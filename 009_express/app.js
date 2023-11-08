@@ -1,4 +1,5 @@
 const express = require('express')
+const morgan = require('morgan')
 
 // create express application
 const app = express()
@@ -12,8 +13,8 @@ app.set('view engine', 'ejs')
 // listen to requests
 app.listen(3000)
 
-// ---------------------------------------------------------------------
-//                       routes - without ejs
+// -------------------------------------------------------------------------------------
+//                                 routes - without ejs
 //
 // app.get('/', (req,res) => {
 //     // res.send('<h1>Teste</h1>')
@@ -36,21 +37,35 @@ app.listen(3000)
 // // 'use' method is used to apply middleware
 // // (between req and res)
 // // And must always be in last 
-// ---------------------------------------------------------------------
-//                        routes - with ejs
+
+// -------------------------------------------------------------------------------------
+//                                     middleware
+app.use(express.static('public'))
+app.use(morgan('Method: :method')) 
+
+// -------------------------------------------------------------------------------------
+//                                  routes - with ejs
 app.get('/', (req,res) => {
     res.render('home', {title: "Home Page"})
 })
+
 app.get('/about', (req,res) => {
     res.render('about',{title: "About us"})
 })
+
 app.get('/services', (req,res) => {
-    res.render('services',{title: "Contact us"})
+
+    // const servicos = []
+    const servicos = [ // collection with 3 objects
+        {titulo_servico: "Web Development", descricao: "We develop web pages and apps."},
+        {titulo_servico: "Desktop Development", descricao: "We develop desktop apps."},
+        {titulo_servico: "Mobile Development", descricao: "We develop mobile apps for Android and iOS."}
+    ]
+
+    res.render('services', { title: "Contact us", servicos })
 })
-app.get('/teste-ejs', (req,res) => {
-    res.render('inicio')
-})
+
 app.use((req,res)=>{
     res.status(404).render('404', {title: "Error!"})
 })
-// ---------------------------------------------------------------------
+// -------------------------------------------------------------------------------------

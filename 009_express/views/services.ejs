@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-</head>
-<body>
+<%- include("./partials/header.ejs") %>
 
-    <div>
-        <a href="/">Home</a>&nbsp;|&nbsp;
-        <a href="/services">Services</a>&nbsp;|&nbsp;
-        <a href="/about">About</a>
-    </div>
+<%- include("./partials/nav.ejs") %>
 
-    <h1>Services</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In non iure maiores totam vero, velit pariatur molestiae rem modi distinctio eos, laboriosam magnam, earum ipsa! Hic, cumque incidunt? Iusto, inventore!</p>
-</body>
-</html>
+<h1>Services</h1>
+
+<% if(servicos.length > 0){ %> <% servicos.forEach(servico => { %>
+<h3><%= servico.titulo_servico %></h3>
+<p><%= servico.descricao %></p>
+<hr />
+<% }); %> <% } else { %>
+<p>No services found.</p>
+<% } %>
+
+<%- include("./partials/footer.ejs") %>
