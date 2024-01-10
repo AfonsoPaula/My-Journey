@@ -152,9 +152,72 @@ SELECT * FROM socios WHERE telefone NOT LIKE '%Nunes%'
 ```sql
 SELECT * FROM socios WHERE nome LIKE 'ana %' LIMIT 3
 ```
-3. Selecionar as 3 últimas sócias chamadas 'Ana'
+2. Selecionar as 3 últimas sócias chamadas 'Ana'
 ```sql
 SELECT * FROM socios WHERE nome LIKE 'ana %' ORDER BY id_socio desc limit 3
 ```
 
 📝 **Nota: Existem outros sistemas de gestão de bases de dados que não utilização o LIMIT, mas sim outras opções como o caso do 'TOP' ou 'NUMROW'. Consultar as documentações respetivas.**
+
+<hr>
+
+<div align='center'>
+  <h2>Utilização do operador <strong>'BETWEEN'</strong></h2>
+</div>
+
+1. Exemplo de uma query sem o operador ```BETWEEN```
+```sql
+SELECT * FROM socios WHERE id_socio >= 100 AND id_socio <= 200
+```
+2. O mesmo resultado aplicando o operador ```BETWEEN```
+```sql
+SELECT * FROM socios WHERE id_socio BETWEEN 100 AND 200
+```
+3. Selecionar todos os sócios com id's entre 100 e 200 ou entre 300 e 400
+```sql
+SELECT * FROM socios WHERE id_socio BETWEEN 100 AND 200 OR id_socio BETWEEN 300 AND 400
+```
+4. Selecionar todos os sócios que nasceram entre a década de 1960 e 1970
+```sql
+SELECT * FROM socios WHERE data_nascimento BETWEEN '1960-01-01' AND '1969-12-31'
+```
+5. Selecionar todos os sócios cujo nome comece em 'Carla' e acabe em 'Fernanda'
+```sql
+SELECT * FROM socios WHERE nome BETWEEN 'carla' AND 'fernanda' ORDER BY nome
+```
+
+📝 **Nota: ASC é assumido por defeito quando se utiliza somente o 'ORDER BY'**
+
+<div align='center'>
+  <h2>Utilização do operador <strong>'IN'</strong></h2>
+</div>
+
+1. Selecionar três sócios com id's específicos sem o operador ```ìn```
+```sql
+SELECT * FROM socios WHERE id_socio = 10 OR id_socio = 20 OR id_socio = 30
+```
+2. Selecionar três sócios com id's específicos com o operador ```ìn```
+```sql
+SELECT * FROM socios WHERE id_socio in (10,20,30)
+```
+3. Selecionar os sócios de Lisboa e Porto sem o operador ```ìn```
+```sql
+SELECT * FROM socios WHERE cidade = 'Lisboa' OR cidade = 'Porto'
+```
+4. Selecionar os sócios de Lisboa e Porto com o operador ```ìn```
+```sql
+SELECT * FROM socios WHERE cidade in ('Lisboa', 'Porto')
+```
+
+<div align='center'>
+  <h2>Utilização do operador <strong>'NOT IN'</strong></h2>
+</div>
+
+1. Selecionar os sócios que não possuam id's específicos
+```sql
+SELECT * FROM socios WHERE id_socio NOT IN (1, 2, 3, 4, 5, 6, 7)
+```
+2. Selecionar os sócios que não sejam de Lisboa e Porto
+```sql
+SELECT * FROM socios WHERE cidade NOT IN ('Lisboa', 'Porto')
+```
