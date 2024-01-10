@@ -70,7 +70,7 @@ SELECT id_socio, nome FROM socios WHERE NOT id_socio = 10
 ```sql
 SELECT * FROM socios WHERE id_socio = 10 OR id_socio = 20
 ```
-❌ Se substituirmos pela condição "AND" vai dar erro, pois esta condição é utilizada para encontrar valores que pertencem à mesma linha
+❌ **Se substituirmos pela condição "AND" vai dar erro, pois esta condição é utilizada para encontrar valores que pertencem à mesma linha**
 ```sql
 SELECT * FROM socios WHERE id_socio = 10 AND id_socio = 20
 ```
@@ -88,3 +88,73 @@ SELECT * FROM socios WHERE id_socio >= 100 AND id_socio <= 400 AND cidade = 'Lis
 ```
 
 <hr>
+
+<div align='center'>
+  <h2>Utilização da cláusula <strong>'LIKE'</strong></h2>
+</div>
+
+1. Selecionar todos os sócios cujo nome comece pela letra 'a' 
+```sql
+SELECT * FROM socios WHERE nome LIKE 'a%'
+-- % wildcard
+```
+📝 **Nota: Entre os parênteses o _case sensitive_ não funciona**
+
+2. Selecionar todos os sócios cujo nome tenha 'Garcia' no meio
+```sql
+SELECT * FROM socios WHERE nome LIKE '%Garcia%'
+-- % wildcard
+```
+3. Selecionar todos os sócios cujo telefone comece pelo indicativo '93'
+```sql
+SELECT * FROM socios WHERE telefone LIKE '93%'
+```
+4. Selecionar todos os sócios cujo telefone comece pelo indicativo '93' e que termine em '6'
+```sql
+SELECT * FROM socios WHERE telefone LIKE '93%6'
+```
+5. Selecionar todos os sócios cujo telefone comece pelo indicativo '93' e que tenha '6' na quarta posição
+```sql
+SELECT * FROM socios WHERE telefone LIKE '93_6%'
+-- _ wildcard
+```
+6. Selecionar os sócios entre o id 100 e 200 cujo telefone comece pelo indicativo '93'
+```sql
+SELECT * FROM socios WHERE telefone LIKE '93%' AND id_socio >= 100 AND id_socio <=200
+```
+
+<hr>
+
+<div align='center'>
+  <h2>Utilização da cláusula <strong>'NOT LIKE'</strong></h2>
+</div>
+
+1. Selecionar todos os sócios em que o número de telefone não comece por '93'
+```sql
+SELECT * FROM socios WHERE telefone NOT LIKE '93%'
+```
+2. Selecionar todos os sócios em que o nome não comece pela letra 'a'
+```sql
+SELECT * FROM socios WHERE telefone NOT LIKE 'a%'
+```
+3. Selecionar todos os sócios em que o nome não contenha o nome 'Nunes'
+```sql
+SELECT * FROM socios WHERE telefone NOT LIKE '%Nunes%'
+```
+
+<hr>
+
+<div align='center'>
+  <h2>Utilização da cláusula <strong>'LIMIT'</strong></h2>
+</div>
+
+1. Selecionar as primeiras 3 sócias chamadas 'Ana'
+```sql
+SELECT * FROM socios WHERE nome LIKE 'ana %' LIMIT 3
+```
+3. Selecionar as 3 últimas sócias chamadas 'Ana'
+```sql
+SELECT * FROM socios WHERE nome LIKE 'ana %' ORDER BY id_socio desc limit 3
+```
+
+📝 **Nota: Existem outros sistemas de gestão de bases de dados que não utilização o LIMIT, mas sim outras opções como o caso do 'TOP' ou 'NUMROW'. Consultar as documentações respetivas.**
