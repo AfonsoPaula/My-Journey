@@ -6,9 +6,7 @@ A base de dados utilizada foi criada a partir da query ```db_socios.sql``` dispo
 - De uma linha ```--```
 - De várias linhas ```/*   */```
 
-
-
-
+<br><br>
 <table>
   <tr>
     <th>Comando SQL</th>
@@ -171,8 +169,95 @@ A base de dados utilizada foi criada a partir da query ```db_socios.sql``` dispo
     <td>Selecionar os sócios que não sejam de Lisboa e Porto</td>
     <td><code>SELECT * FROM socios WHERE cidade NOT IN ('Lisboa', 'Porto');</code></td>
   </tr>
-  
+  <tr>
+    <td rowspan="5">SELECT...MIN...MAX</td>
+    <td>Selecionar o sócio mais antigo</td>
+    <td><code>SELECT min(data_nascimento) FROM socios;</code></td>
+  </tr>
+  <tr>
+    <td>Selecionar o sócio mais novo</td>
+    <td><code>SELECT max(data_nascimento) FROM socios;</code></td>
+  </tr>
+  <tr>
+    <td>Selecionar o sócio mais novo dos primeiros 50 sócios</td>
+    <td><code>SELECT max(data_nascimento) FROM socios WHERE id_socio<=50;</code></td>
+  </tr>
+  <tr>
+    <td>Selecionar na tabela dos donativos a quantia mais baixa</td>
+    <td><code>SELECT min(quantia) FROM donativos;</code></td>
+  </tr>
+  <tr>
+    <td>Selecionar na tabela dos donativos a quantia mais alta</td>
+    <td><code>SELECT max(quantia) FROM donativos;</code></td>
+  </tr>
+  <tr>
+    <td rowspan="3">ALIASES</td>
+    <td>Obter o donativo máximo e mínimo com aliases</td>
+    <td><code>SELECT min(quantia) AS minimo, max(quantia) AS maximo FROM donativos;</code></td>
+  </tr>
+  <tr>
+    <td>Obter a data de nascimento mais antiga e mais recente</td>
+    <td><code>SELECT min(data_nascimento) AS mais_velho, max(data_nascimento) AS mais_novo FROM socios;</code></td>
+  </tr>
+  <tr>
+    <td>Obter todos os nomes, moradas e cidades no caso de ter mais que uma tabela com colunas com o mesmo nome</td>
+    <td><code>SELECT s.nome, s.morada, s.cidade FROM socios s;</code></td>
+  </tr>
+  <tr>
+    <td rowspan="3">SELECT COUT, AVG, SUM</td>
+    <td></td>
+    <td><code></code></td>
+  </tr>
+  <tr>
+      <td></td>
+      <td><code></code></td>
+  </tr>
+  <tr>
+      <td></td>
+      <td><code></code></td>
+  </tr>
+  <tr>
+      <td></td>
+      <td><code></code></td>
+  </tr>
+  <tr>
+      <td></td>
+      <td><code></code></td>
+  </tr>
+  <tr>
+      <td></td>
+      <td><code></code></td>
+  </tr>
+  <tr>
+      <td></td>
+      <td><code></code></td>
+  </tr>
+  <tr>
+      <td></td>
+      <td><code></code></td>
+  </tr>
+  <tr>
+      <td></td>
+      <td><code></code></td>
+  </tr>
+  <tr>
+      <td></td>
+      <td><code></code></td>
+  </tr>
+  <tr>
+      <td></td>
+      <td><code></code></td>
+  </tr>
+  <tr>
+      <td></td>
+      <td><code></code></td>
+  </tr>
 </table>
+
+  <tr>
+      <td></td>
+      <td><code></code></td>
+  </tr>
 
 ## Utilização básica da instrução ```SELECT```:
 ## ```SELECT``` jutamente com a cláusula ```WHERE```:
