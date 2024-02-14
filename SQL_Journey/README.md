@@ -204,59 +204,103 @@ A base de dados utilizada foi criada a partir da query ```db_socios.sql``` dispo
     <td><code>SELECT s.nome, s.morada, s.cidade FROM socios s;</code></td>
   </tr>
   <tr>
-    <td rowspan="3">SELECT COUT, AVG, SUM</td>
-    <td></td>
-    <td><code></code></td>
+    <td rowspan="3">COUT</td>
+    <td>Obter a quantidade de sócios</td>
+    <td><code>SELECT count(id_socio) AS total_socios FROM socios;</code></td>
   </tr>
   <tr>
-      <td></td>
-      <td><code></code></td>
+    <td>Obter a quantidade de sócios cuja data de nasicmento seja menor que 1980</td>
+    <td><code>SELECT count(nome) AS total FROM socios WHERE data_nascimento < '1980-01-01';</code></td>
   </tr>
   <tr>
-      <td></td>
-      <td><code></code></td>
+    <td>Obter a quantidade de donativos iguais a 20</td>
+    <td><code>SELECT count(id_donativo) AS total FROM donativos WHERE quantia = 20;</code></td>
   </tr>
   <tr>
-      <td></td>
-      <td><code></code></td>
+    <td rowspan="2">AVG</td>
+    <td>Calcular a média geral das quantias doadas</td>
+    <td><code>SELECT avg(quantia) AS average FROM donativos;</code></td>
   </tr>
   <tr>
-      <td></td>
-      <td><code></code></td>
+    <td>Obter todos a média de todos os donativos registados até 2015</td>
+    <td><code>SELECT avg(quantia) AS average FROM donativos WHERE data_hora <= '2015-01-01';</code></td>
   </tr>
   <tr>
-      <td></td>
-      <td><code></code></td>
+    <td rowspan="2">SUM</td>
+    <td>Calcular o montante total do dinheiro doado</td>
+    <td><code>SELECT sum(quantia) as 'montante total' FROM donativos;</code></td>
   </tr>
   <tr>
-      <td></td>
-      <td><code></code></td>
+    <td>Calcular o montante total de dinheiro doado desde 2017</td>
+    <td><code>SELECT sum(quantia) as 'montante total' FROM donativos WHERE data_hora >= '2017-01-01';</code></td>
   </tr>
   <tr>
-      <td></td>
-      <td><code></code></td>
+    <td rowspan="3">GROUP BY</td>
+    <td>Quantos sócios cada cidade tem</td>
+    <td><code>SELECT COUNT(id_socio) total, cidade FROM socios GROUP BY cidade ORDER BY cidade asc;</code></td>
   </tr>
   <tr>
-      <td></td>
-      <td><code></code></td>
+      <td>Quantidade de donativos que cada sócio deu</td>
+      <td>
+        <code>SELECT socios.id_socio, socios.nome, COUNT(id_donativo) AS numero_de_donativos</code><br>
+        <code>FROM donativos, socios</code><br>
+        <code>WHERE socios.id_socio = donativos.id_socio</code><br>
+        <code>GROUP BY socios.id_socio;</code>
+      </td>
   </tr>
   <tr>
-      <td></td>
-      <td><code></code></td>
+      <td>Quantia total de donativos de cada doador</td>
+      <td>
+        <code>SELECT s.id_socio, s.nome, s.cidade, sum(d.quantia) AS total_doado</code><br>
+        <code>FROM donativos d, socios s</code><br>
+        <code>WHERE d.id_socio = s.id_socio</code><br>
+        <code>GROUP BY s.id_socio;</code>
+      </td>
   </tr>
   <tr>
-      <td></td>
-      <td><code></code></td>
+    <td rowspan="4">GROUP BY ... HAVING<br>*4</td>
+    <td>Quantidade de donativos cujos sócios tenham id menor ou igual a 10</td>
+      <td>
+        <code>SELECT id_socio, count(id_donativo) AS total_donativos</code><br>
+        <code>FROM donativos</code><br>
+        <code>GROUP BY id_socio</code><br>
+        <code>HAVING id_socio <= 10;</code>
+      </td>
   </tr>
   <tr>
-      <td></td>
-      <td><code></code></td>
+    <td>Obter os sócios cujo montante total de dinheiro doado seja maior que 3000</td>
+    <td>
+      <code>SELECT s.id_socio, s.nome, s.cidade, SUM(d.quantia) AS total_doado</code><br>
+      <code>FROM donativos d, socios s</code><br>
+      <code>WHERE d.id_socio = s.id_socio</code><br>
+      <code>GROUP BY s.id_socio;</code><br>
+      <code>HAVING total_doado > 3000;</code>
+    </td>
+  </tr>
+  <tr>
+    <td>Obter a quantidade total de dinheiro doado dos sócios que comecem pela letra 'a'</td>
+    <td>
+      <code>SELECT s.nome, SUM(d.quantia) AS total</code><br>
+      <code>FROM donativos d, socios s</code><br>
+      <code>WHERE s.id_socio = d.id_socio</code><br>
+      <code>GROUP BY s.id_socio</code><br>
+      <code>HAVING s.nome LIKE 'a%';</code>
+    </td>
+  </tr>
+  <tr>
+    <td>Obter o nome dos sócios cuja quantidade total de doações seja maior que 2300 por ordem descrescente</td>
+    <code>SELECT s.nome, SUM(d.quantia) AS total</code><br>
+    <code>FROM donativos d, socios s</code><br>
+    <code>WHERE s.id_socio = d.id_socio</code><br>
+    <code>GROUP BY s.id_socio</code><br>
+    <code>HAVING total > 2300</code><br>
+    <code>ORDER BY total DESC;</code>
   </tr>
 </table>
 
   <tr>
-      <td></td>
-      <td><code></code></td>
+    <td></td>
+    <td><code></code></td>
   </tr>
 
 ## Utilização básica da instrução ```SELECT```:
@@ -276,3 +320,5 @@ SELECT * FROM socios WHERE id_socio = 10 AND id_socio = 20
 2* 📝 **Nota: Entre os parênteses o _case sensitive_ não funciona**
 
 3* 📝 **Nota: Existem outros sistemas de gestão de bases de dados que não utilização o LIMIT, mas sim outras opções como o caso do 'TOP' ou 'NUMROW'. Consultar as documentações respetivas.**
+
+*4 📝 **Utilizar o ```HAVING```` depois do agrupamento para casos que contenham mecanismos de agregação como SUM, AVG e COUNT**
