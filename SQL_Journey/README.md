@@ -289,12 +289,87 @@ A base de dados utilizada foi criada a partir da query ```db_socios.sql``` dispo
   </tr>
   <tr>
     <td>Obter o nome dos sócios cuja quantidade total de doações seja maior que 2300 por ordem descrescente</td>
-    <code>SELECT s.nome, SUM(d.quantia) AS total</code><br>
-    <code>FROM donativos d, socios s</code><br>
-    <code>WHERE s.id_socio = d.id_socio</code><br>
-    <code>GROUP BY s.id_socio</code><br>
-    <code>HAVING total > 2300</code><br>
-    <code>ORDER BY total DESC;</code>
+    <td>
+      <code>SELECT s.nome, SUM(d.quantia) AS total</code><br>
+      <code>FROM donativos d, socios s</code><br>
+      <code>WHERE s.id_socio = d.id_socio</code><br>
+      <code>GROUP BY s.id_socio</code><br>
+      <code>HAVING total > 2300</code><br>
+      <code>ORDER BY total DESC;</code>
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="4">DELETE</td>
+    <td>Eliminar todos os registos de uma dada tabela</td>
+    <td><code>DELETE * FROM socios;</code></td>
+  </tr>
+  <tr>
+    <td>Eliminar sócio com id igual a 10</td>
+    <td><code>DELETE FROM socios WHERE id_socio = 10;</code></td>
+  </tr>
+  <tr>
+    <td>Eliminar todos os sócios cujo nome comece pela letra 'a'</td>
+    <td><code>DELETE FROM socios WHERE nome LIKE 'a%';</code></td>
+  </tr>
+  <tr>
+    <td>Eliminar os sócios que pertencem à cidade de Lisboa</td>
+    <td><code>DELETE * FROM socios WHERE cidade = "Lisboa";</code></td>
+  </tr>
+  <tr>
+    <td rowspan="1">TRUNCATE</td>
+    <td>Eliminar tudo e fazer reset ao auto-incremento</td>
+    <td><code>TRUNCATE donativos</code></td>
+  </tr>
+  <tr>
+    <td rowspan="2">UNION <br><br> *5</td>
+    <td>Selecionar os sócios com id maior que 10 e os sócios com o id superior ou igual a 200 - utilizando duas queries</td>
+    <td>
+      <code>SELECT * FROM socios WHERE id_socio < 10 UNION</code><br>
+      <code>SELECT * FROM socios WHERE id_socio >= 200;</code>
+    </td>
+  </tr>
+  <tr>
+    <td>Unir a pesquisa de calcular a quantidade total doada pelo sócio com id 1 com a pesquisa de saber quantos donativos foram doados pela mesma pessoa</td>
+    <td>
+      <code>SELECT id_socio, SUM(quantia) AS valor FROM donativos WHERE id_socio = 1</code><br><br>
+      <code>UNION</code><br><br>
+      <code>SELECT id_socio, COUNT(id_donativo) AS VALOR FROM donativos WHERE id_socio = 1;</code>
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="1">UNION ALL</td>
+    <td>Forma de obter a união de duas queries sem remover os registos duplicados.</td>
+    <td>
+      <code>SELECT nome FROM socios</code><br><br>
+      <code>UNION ALL</code><br><br>
+      <code>SELECT nome FROM socios;</code>
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="2">UPDATE</td>
+    <td>Alterar o nome do sócio com id igual a 1</td>
+    <td><code>UPDATE socios SET nome = 'ALTERAD0' WHERE id_socio = 1;</code></td>
+  </tr>
+  <tr>
+    <td>Alterar o nome e a cidade do sócio com id igual a 2</td>
+    <td><code>UPDATE socios SET nome = 'ALTERAD02', cidade = 'CITY' WHERE id_socio = 2;</code></td>
+  </tr>
+  <tr>
+    <td rowspan="3">INSERT</td>
+    <td>Adicionar uma nova linha à tabela donativos (com auto-incremento)</td>
+    <td><code>INSERT INTO donativos(id_socio, quantia, data_hora) VALUES(200, 30, NOW());</code></td>
+  </tr>
+  <tr>
+    <td>Adicionar mais que uma linha a uma dada tabela</td>
+    <td>
+      <code>INSERT INTO donativos(id_socio, quantia, data_hora) VALUES(200, 30, NOW());</code><br>
+      <code>INSERT INTO donativos(id_socio, quantia, data_hora) VALUES(201, 40, NOW());</code><br>
+      <code>INSERT INTO donativos(id_socio, quantia, data_hora) VALUES(202, 50, NOW());</code>
+    </td>
+  </tr>
+  <tr>
+    <td>Adicionar uma linha a uma tabela que não tem nenhum coluna com auto-incremento</td>
+    <td><code>INSERT INTO donativos2 VALUES(1000, 201, 40, NOW());</code></td>
   </tr>
 </table>
 
@@ -322,3 +397,5 @@ SELECT * FROM socios WHERE id_socio = 10 AND id_socio = 20
 3* 📝 **Nota: Existem outros sistemas de gestão de bases de dados que não utilização o LIMIT, mas sim outras opções como o caso do 'TOP' ou 'NUMROW'. Consultar as documentações respetivas.**
 
 *4 📝 **Utilizar o ```HAVING```` depois do agrupamento para casos que contenham mecanismos de agregação como SUM, AVG e COUNT**
+
+*5 📝 **Existem três premissas fundamentais para utilizar o _union_: ambas as queries têm que ter o mesmo número de colunas, as colunas têm de ter o mesmo tipo de valores e as colunas têm de ser devolvidas pela mesma ordem. Por default, o _union_ remove os registos duplicados (não são considerados), mas caso se queira ter os registos duplicados usa-se "UNION ALL".**
