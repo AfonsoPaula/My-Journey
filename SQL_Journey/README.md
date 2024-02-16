@@ -371,6 +371,84 @@ A base de dados utilizada foi criada a partir da query ```db_socios.sql``` dispo
     <td>Adicionar uma linha a uma tabela que não tem nenhum coluna com auto-incremento</td>
     <td><code>INSERT INTO donativos2 VALUES(1000, 201, 40, NOW());</code></td>
   </tr>
+  <tr>
+    <td rowspan="2">CHAR_LENGTH</td>
+    <td>Nome de todos os sócios cujo nome tenha um comprimento de caractéres superior ou igual a 25 letras</td>
+    <td><code>SELECT nome FROM socios WHERE CHAR_LENGTH(nome) >= 25;</code></td>
+  </tr>
+  <tr>
+    <td>Nome de todos os sócios cujo nome tenha um comprimento de caractéres superior ou igual a 25 letras, assim como o seu respetivo comprimento</td>
+    <td><code>SELECT nome, CHAR_LENGTH(nome) AS tamanho FROM socios WHERE CHAR_LENGTH(nome) >= 25;</code></td>
+  </tr>
+  <tr>
+    <td rowspan="2">CONCAT</td>
+    <td>Obter o nome e a morada completa a partir da concatenação de informações entre duas colunas</td>
+    <td><code>SELECT nome, CONCAT(morada, ' - ', cidade) AS morada_completa FROM socios;</code></td>
+  </tr>
+  <tr>
+    <td>Para cada linha concatenar ao nome dos sócios a string 'Nome'</td>
+    <td><code>SELECT CONCAT('Nome: ', nome) as nome FROM socios;</code></td>
+  </tr>
+  <tr>
+    <td rowspan="1">CONCAT_WS</td>
+    <td>O primeiro caractere permite atribuir o(s) caractere(s) de separação entre todos os restantes elementos</td>
+    <td><code>SELECT CONCAT_WS(' > ', nome, morada, cidade) AS valor FROM socios;</code></td>
+  </tr>
+  <tr>
+    <td rowspan="2">FORMAT</td>
+    <td>Selecionar as infomrações de quantias de forma que os resultados estejam formatados com uma casa decimal</td>
+    <td><code>SELECT FORMAT(quantia,1) FROM donativos;</code></td>
+  </tr>
+  <tr>
+    <td>Arredondar o número 250.495 a duas casas decimais</td>
+    <td><code>SELECT FORMAT (250.495, 2) AS TOTAL;</code></td>
+  </tr>
+  <tr>
+    <td rowspan="1">UCASE e UPPER</td>
+    <td>Colocar todos os caracteres em letras maiúsculas da coluna nome</td>
+    <td><code>SELECT UCASE(nome) as Nome FROM socios;</code></td>
+  </tr>
+  <tr>
+    <td rowspan="1">LCASE e LOWER</td>
+    <td>Colocar todos os caracteres em letras minúsculas da coluna nome</td>
+    <td><code>SELECT UCASE(nome) as Nome FROM socios;</code></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><code></code></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><code></code></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><code></code></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><code></code></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><code></code></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><code></code></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><code></code></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><code></code></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><code></code></td>
+  </tr>
 </table>
 
   <tr>
@@ -386,6 +464,7 @@ A base de dados utilizada foi criada a partir da query ```db_socios.sql``` dispo
 <h2>Utilização do operador <strong>'BETWEEN'</strong></h2>
 <h2>Utilização do operador <strong>'IN'</strong></h2>
 <h2>Utilização do operador <strong>'NOT IN'</strong></h2>
+MYSQL FUNCTIONS -> CONCAT CONCAT_WS FORMAT SELECT_INSERT UCASE UPPER LCASE LOWER
 
 1* ❌ **Se substituirmos pela condição "AND" vai dar erro, pois esta condição é utilizada para encontrar valores que pertencem à mesma linha**
 ```sql
