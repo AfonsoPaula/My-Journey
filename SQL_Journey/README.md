@@ -412,49 +412,8 @@ A base de dados utilizada foi criada a partir da query ```db_socios.sql``` dispo
     <td rowspan="1">LCASE e LOWER</td>
     <td>Colocar todos os caracteres em letras minúsculas da coluna nome</td>
     <td><code>SELECT UCASE(nome) as Nome FROM socios;</code></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td><code></code></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td><code></code></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td><code></code></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td><code></code></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td><code></code></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td><code></code></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td><code></code></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td><code></code></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td><code></code></td>
-  </tr>
+  </tr>  
 </table>
-
-  <tr>
-    <td></td>
-    <td><code></code></td>
-  </tr>
 
 ## Utilização básica da instrução ```SELECT```:
 ## ```SELECT``` jutamente com a cláusula ```WHERE```:
